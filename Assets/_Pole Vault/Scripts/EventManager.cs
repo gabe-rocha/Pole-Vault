@@ -8,6 +8,7 @@ public class EventManager : MonoBehaviour
 {
     private Dictionary<Data.Events, UnityEvent> simpleEventDictionary = new Dictionary<Data.Events, UnityEvent>();
     private Dictionary<Data.Events, UnityEvent<int>> paramIntEventDictionary = new Dictionary<Data.Events, UnityEvent<int>>();
+    private Dictionary<Data.Events, UnityEvent<float>> paramFloatEventDictionary = new Dictionary<Data.Events, UnityEvent<float>>();
     private Dictionary<Data.Events, UnityEvent<string>> paramStringEventDictionary = new Dictionary<Data.Events, UnityEvent<string>>();
     private Dictionary<Data.Events, UnityEvent<GameObject>> paramGOEventDictionary = new Dictionary<Data.Events, UnityEvent<GameObject>>();
     private Dictionary<Data.Events, UnityEvent<Vector3>> paramVec3EventDictionary = new Dictionary<Data.Events, UnityEvent<Vector3>>();
@@ -69,6 +70,20 @@ public class EventManager : MonoBehaviour
             thisParamEvent = new UnityEvent<int>();
             thisParamEvent.AddListener(listener);
             paramIntEventDictionary.Add(eventName, thisParamEvent);
+        }
+    }
+    public void StartListeningWithFloatParam(Data.Events eventName, UnityAction<float> listener)
+    {
+        UnityEvent<float> thisParamEvent = null;
+        if (paramFloatEventDictionary.TryGetValue(eventName, out thisParamEvent))
+        {
+            thisParamEvent.AddListener(listener);
+        }
+        else
+        {
+            thisParamEvent = new UnityEvent<float>();
+            thisParamEvent.AddListener(listener);
+            paramFloatEventDictionary.Add(eventName, thisParamEvent);
         }
     }
 
@@ -136,6 +151,15 @@ public class EventManager : MonoBehaviour
             thisParamEvent.RemoveListener(listener);
         }
     }
+    public void StopListeningWithFloatParam(Data.Events eventName, UnityAction<float> listener)
+    {
+        if (Instance == null) return;
+        UnityEvent<float> thisParamEvent = null;
+        if (paramFloatEventDictionary.TryGetValue(eventName, out thisParamEvent))
+        {
+            thisParamEvent.RemoveListener(listener);
+        }
+    }
     public void StopListeningWithStringParam(Data.Events eventName, UnityAction<string> listener)
     {
         if (Instance == null) return;
@@ -182,6 +206,14 @@ public class EventManager : MonoBehaviour
         if (paramIntEventDictionary.TryGetValue(eventName, out thisParamEvent))
         {
             thisParamEvent.Invoke(i);
+        }
+    }
+    public void TriggerEventWithFloatParam(Data.Events eventName, float value)
+    {
+        UnityEvent<float> thisParamEvent = null;
+        if (paramFloatEventDictionary.TryGetValue(eventName, out thisParamEvent))
+        {
+            thisParamEvent.Invoke(value);
         }
     }
     public void TriggerEventWithStringParam(Data.Events eventName, string s)

@@ -19,15 +19,19 @@ public static class Data
         OnGameManagerReady,
         OnTimerStarted,
         OnWordDrawn,
+        OnEnterPressed,
+        OnWordIsCorrect,
+        OnPlayerLanded,
+        JumpPowerCalculated,
     }
 
     public static float gameDuration = 30f;
 
     public static List<string> listOfWords = new List<string>(){
-        "hello",
-        "world",
-        "stuff",
-        "animal",
-        "aliens"
+        "alpha",
+        // "asdf",
+        // "asd",
+        // "asdfasdfasdf",
+        // "qwerqwerqwerqwer"
     };
 }

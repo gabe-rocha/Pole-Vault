@@ -10,12 +10,12 @@ public class GameManager : MonoBehaviour
     
     private void OnEnable()
     {
-        // EventManager.Instance.StartListening(Data.Events.OnTimeRanOut, OnTimeRanOut);
+        EventManager.Instance.StartListening(Data.Events.OnPlayerLanded, PlayerLanded);
     }
 
     private void OnDisable()
     {
-        // EventManager.Instance.StopListening(Data.Events.OnTimeRanOut, OnTimeRanOut);
+        EventManager.Instance.StopListening(Data.Events.OnPlayerLanded, PlayerLanded);
     }
 
     void Awake(){
@@ -34,10 +34,7 @@ public class GameManager : MonoBehaviour
         EventManager.Instance.TriggerEvent(Data.Events.OnGameManagerReady);
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha2)){
-            // EventManager.Instance.TriggerEvent(Data.Events.OnCorrectElementSelected);
-        }
+    private void PlayerLanded(){
+        Debug.Log("Player landed!");
     }
 }
