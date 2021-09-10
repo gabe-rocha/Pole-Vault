@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Cinemachine;
+using UnityEngine;
 
-public class SimpleParallax : MonoBehaviour
-{
-   [SerializeField] private Vector2 parallaxEffectMultiplier;
+public class SimpleParallax : MonoBehaviour {
+    [SerializeField] private Vector2 parallaxEffectMultiplier;
 
     private Transform cameraTransform;
     private Vector3 lastCameraPosition;
 
     private void Start() {
-        cameraTransform = Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera.VirtualCameraGameObject.transform;
+        //cameraTransform = Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera.VirtualCameraGameObject.transform;
+        cameraTransform = Camera.main.transform;
         lastCameraPosition = cameraTransform.position;
     }
 

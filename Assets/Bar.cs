@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Bar : MonoBehaviour {
 
-    [SerializeField] private Transform topBarTransform;
-
     private void OnEnable() {
         EventManager.Instance.StartListeningWithIntParam(EventManager.Events.JumpPowerCalculated, SetupTopBarHeight);
     }
@@ -14,8 +12,8 @@ public class Bar : MonoBehaviour {
     }
 
     private void SetupTopBarHeight(int jumpPower) {
-        var pos = topBarTransform.position;
+        var pos = transform.position;
         pos.y += jumpPower;
-        topBarTransform.position = pos;
+        transform.position = pos;
     }
 }

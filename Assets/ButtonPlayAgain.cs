@@ -11,10 +11,10 @@ public class ButtonPlayAgain : MonoBehaviour {
 
     private void OnEnable() {
 
-        EventManager.Instance.StartListening(EventManager.Events.MatchEnded, OnGameOver);
+        EventManager.Instance.StartListening(EventManager.Events.GameEnded, OnGameOver);
     }
     private void OnDisable() {
-        EventManager.Instance.StartListening(EventManager.Events.MatchEnded, OnGameOver);
+        EventManager.Instance.StartListening(EventManager.Events.GameEnded, OnGameOver);
 
     }
 
@@ -42,7 +42,7 @@ public class ButtonPlayAgain : MonoBehaviour {
         var startTime = Time.time;
         while (Time.time < startTime + Data.fadeOutSpeed) {
             var color = imageFadeOut.color;
-            color.a += 1f / Data.fadeOutSpeed * 1f / Time.deltaTime;
+            color.a += 1f / Data.fadeOutSpeed * Time.deltaTime;
             // imageFadeOut.CrossFadeAlpha(1f, Data.fadeOutSpeed, true);
             imageFadeOut.color = color;
             yield return null;

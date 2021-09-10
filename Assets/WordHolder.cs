@@ -10,22 +10,25 @@ public class WordHolder : MonoBehaviour {
     [SerializeField] private GameObject letterSpaceTemplate;
     [SerializeField] private TextMeshProUGUI txtJumpPower;
     [SerializeField] private float backspacePower = -0.3f;
-    [SerializeField] private float letterPower = 0.15f;
+    [SerializeField] private float letterPower = 0.25f;
+    [SerializeField] private GameObject txtQuestion;
 
     private string wordDrawn, wordTyped;
     private List<string> listOfWords;
     private List<GameObject> listOfLetters = new List<GameObject>();
     private int currentLetterIndex = 0;
-    private float jumpPower = 1f;
+    private float jumpPower = 2f;
     private AudioSource audioSource;
 
     private void OnEnable() {
         EventManager.Instance.StartListening(EventManager.Events.GameManagerReady, DrawAWord);
         EventManager.Instance.StartListening(EventManager.Events.OnEnterPressed, CheckIfWordIsCorrect);
+        EventManager.Instance.StartListening(EventManager.Events.OnPlayerLanded, PlayerLanded);
     }
     private void OnDisable() {
         EventManager.Instance.StopListening(EventManager.Events.GameManagerReady, DrawAWord);
         EventManager.Instance.StopListening(EventManager.Events.OnEnterPressed, CheckIfWordIsCorrect);
+        EventManager.Instance.StopListening(EventManager.Events.OnPlayerLanded, PlayerLanded);
     }
 
     private void Awake() {
@@ -37,7 +40,7 @@ public class WordHolder : MonoBehaviour {
     }
 
     private void CheckIfWordIsCorrect() {
-        if (wordDrawn == wordTyped) {
+        if (wordDrawn == wordTyped.ToUpper()) {
             EventManager.Instance.TriggerEventWithFloatParam(EventManager.Events.OnWordIsCorrect, jumpPower);
         }
     }
@@ -46,11 +49,17 @@ public class WordHolder : MonoBehaviour {
         listOfWords = Data.listOfWords;
 
         int rng = Random.Range(0, listOfWords.Count);
-        wordDrawn = listOfWords[rng];
+        wordDrawn = listOfWords[rng].ToUpper();
+
+        letterPower = 2f / wordDrawn.Length;
+
         InstantiateLetterSpaces();
         PlayWordAudio();
 
+        txtQuestion.SetActive(true);
         EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.OnWordDrawn, wordDrawn);
+
+        UpdateTopBar();
 
         Debug.Log($"Word Drawn: {wordDrawn}");
     }
@@ -107,19 +116,21 @@ public class WordHolder : MonoBehaviour {
         }
 
         Debug.Log($"Word Typed: {wordTyped}");
-        UpdateUI();
+        UpdateHeight();
         UpdateTopBar();
     }
 
     private void UpdateTopBar() {
         //set bar height
         var barPosition = jumpTopPosition.position;
-        barPosition.y = jumpPower * 300;
+        Debug.Log($"Jump Power: {jumpPower}");
+        barPosition.y = -4f + jumpPower;
         jumpTopPosition.position = barPosition;
     }
 
-    private void UpdateUI() {
+    private void UpdateHeight() {
         txtJumpPower.text = jumpPower.ToString("0.00" + 'm');
+
     }
 
     private void OnEndEdit(string str) {
@@ -129,6 +140,10 @@ public class WordHolder : MonoBehaviour {
             EventManager.Instance.TriggerEventWithFloatParam(EventManager.Events.JumpPowerCalculated, jumpPower);
             EventManager.Instance.TriggerEvent(EventManager.Events.OnEnterPressed);
         }
+    }
+
+    private void PlayerLanded() {
+        gameObject.SetActive(false);
     }
 
     private void Update() {

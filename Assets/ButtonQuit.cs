@@ -8,10 +8,10 @@ public class ButtonQuit : MonoBehaviour {
 
     private void OnEnable() {
 
-        EventManager.Instance.StartListening(EventManager.Events.MatchEnded, OnGameOver);
+        EventManager.Instance.StartListening(EventManager.Events.GameEnded, OnGameOver);
     }
     private void OnDisable() {
-        EventManager.Instance.StartListening(EventManager.Events.MatchEnded, OnGameOver);
+        EventManager.Instance.StartListening(EventManager.Events.GameEnded, OnGameOver);
 
     }
 

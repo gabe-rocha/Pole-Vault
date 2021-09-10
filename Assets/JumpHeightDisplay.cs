@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MatchWinnerDisplay : MonoBehaviour {
+public class JumpHeightDisplay : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI txtWhiteOutline, txtBlackOutline, txtPhrase;
 
     private Animator anim;
 
     private void OnEnable() {
-        EventManager.Instance.StartListening(EventManager.Events.MatchEnded, OnMatchEnded);
+        EventManager.Instance.StartListening(EventManager.Events.OnPlayerLanded, PlayerLanded);
     }
     private void OnDisable() {
-        EventManager.Instance.StopListening(EventManager.Events.MatchEnded, OnMatchEnded);
+        EventManager.Instance.StopListening(EventManager.Events.OnPlayerLanded, PlayerLanded);
 
     }
 
@@ -20,14 +20,14 @@ public class MatchWinnerDisplay : MonoBehaviour {
         anim = GetComponent<Animator>();
     }
 
-    private void OnMatchEnded() {
+    private void PlayerLanded() {
         StartCoroutine(WaitAndShow());
     }
 
     private IEnumerator WaitAndShow() {
         yield return new WaitForSeconds(Data.DelayBeforeShowingFinalText);
 
-        txtPhrase.text = $"Player {GameManager.Instance.GetWinner()} Wins!";
+        txtPhrase.text = $"You Jumped {GameManager.Instance.GetHeight()}m High!";
         txtBlackOutline.text = txtPhrase.text;
         txtWhiteOutline.text = txtPhrase.text;
 

@@ -14,7 +14,7 @@ public class EventManager : MonoBehaviour {
         OnStartButtonPressed,
         BallHitTheGround,
         PlayerHitTheBall,
-        MatchEnded,
+        GameEnded,
         MatchStarted,
         GetReadyForSetBegin,
         BallIsInPosition,
