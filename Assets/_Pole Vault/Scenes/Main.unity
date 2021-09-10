@@ -2121,7 +2121,7 @@ GameObject:
   - component: {fileID: 1547563760}
   - component: {fileID: 1547563761}
   m_Layer: 0
-  m_Name: Matress
+  m_Name: Landing Mat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2178,11 +2178,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -646434703
+  m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 5d917bd83caa67a4cbbbf9f77e918d75, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.043137256, g: 0.2627451, b: 0.9686275, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -16507,16 +16507,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5a2fde44731994487a8cd67d3be276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOneBallServePosition: {fileID: 0}
-  playerTwoBallServePosition: {fileID: 0}
-  parabolaController: {fileID: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
-  alreadyHitGroundThisSet: 0
-  rb: {fileID: 0}
-  col: {fileID: 0}
-  followingParabola: 0
-  lastTimeBallPosition: 0
-  lastPosition: {x: 0, y: 0, z: 0}
 --- !u!58 &6692728608671696819
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -22998,10 +22988,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9856aa89d321454bbea77ccdc80786d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtWhiteOutline: {fileID: 0}
-  txtBlackOutline: {fileID: 0}
-  txtPhrase: {fileID: 0}
-  anim: {fileID: 0}
 --- !u!95 &8610483310838830401
 Animator:
   serializedVersion: 3
